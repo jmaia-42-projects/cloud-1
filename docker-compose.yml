@@ -3,13 +3,30 @@ version: "3"
 services:
   wordpress:
     image: wordpress
-  mariadb:
-    image: mariadb
     env_file:
-      - .env
+      - wordpress.env
+    ports:
+      - 8080:80
+    volumes:
+      - wordpress-data:/var/www/html
+    restart: unless-stopped
+  mariadb:
+    build: mariadb
+    env_file:
+      - mariadb/mariadb.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - wordpress-db:/var/lib/mysql
+    restart: unless-stopped
   phpmyadmin:
     image: phpmyadmin
     environment:
       - PMA_HOST=mariadb
     ports:
-      - 8080:80
+      - 8081:80
+    restart: unless-stopped
+
+volumes:
+  wordpress-data:
+  wordpress-db:
