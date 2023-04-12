@@ -1,0 +1,11 @@
+# TODO: Add versions to images
+version: "3"
+services:
+  wordpress:
+    image: wordpress
+  mariadb:
+    image: mariadb
+    env_file:
+      - .env
+  phpmyadmin:
+    image: phpmyadmin
