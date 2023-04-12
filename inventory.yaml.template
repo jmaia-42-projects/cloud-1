@@ -1,0 +1,6 @@
+all:
+  hosts:
+    scaleway:
+      ansible_host: <ip_here>
+  vars:
+    ansible_user: root
