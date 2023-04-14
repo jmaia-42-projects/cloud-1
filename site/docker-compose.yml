@@ -15,7 +15,7 @@ services:
     env_file:
       - mariadb/mariadb.env
     ports:
-      - "3306:3306"
+      - 127.0.0.1:3306:3306
     volumes:
       - wordpress-db:/var/lib/mysql
     restart: unless-stopped
