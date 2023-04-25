@@ -39,6 +39,15 @@
       copy:
         src: site/
         dest: /site/
+    - name: Set good ownership
+      file:
+        path: /site/docker-entrypoint.sh
+        group: root
+        owner: root
+    - name: Stop website
+      docker_compose:
+        project_src: /site
+        state: absent
     - name: Start website
       docker_compose:
         project_src: /site/
