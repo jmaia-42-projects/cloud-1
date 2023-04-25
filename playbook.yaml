@@ -44,6 +44,7 @@
         path: /site/docker-entrypoint.sh
         group: root
         owner: root
+        mode: 700
     - name: Stop website
       docker_compose:
         project_src: /site
