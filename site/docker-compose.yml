@@ -6,9 +6,12 @@ services:
     env_file:
       - wordpress.env
     ports:
-      - 8080:80
+      - 80:80
+      - 443:443
     volumes:
       - wordpress-data:/var/www/html
+      - ./default-ssl.conf:/etc/apache2/sites-available/default-ssl.conf:ro
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
     restart: unless-stopped
   mariadb:
     build: mariadb
@@ -24,7 +27,7 @@ services:
     environment:
       - PMA_HOST=mariadb
     ports:
-      - 8081:80
+      - 8080:80
     restart: unless-stopped
 
 volumes:
