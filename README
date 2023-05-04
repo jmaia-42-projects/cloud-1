@@ -1,0 +1,3 @@
+Copy inventoy.yaml.template to inventory.yaml and fill it
+Copy site/.env.template to site/.env and fill it
+Copy site/mariadb/.env.template to site/mariadb/.env and fill it
