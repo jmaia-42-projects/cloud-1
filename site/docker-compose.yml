@@ -2,9 +2,11 @@
 version: "3"
 services:
   wordpress:
+    depends_on:
+      mariadb:
+        condition: service_healthy
     image: wordpress
-    env_file:
-      - wordpress.env
+    env_file: .env
     ports:
       - 80:80
       - 443:443
@@ -13,6 +15,16 @@ services:
       - ./default-ssl.conf:/etc/apache2/sites-available/default-ssl.conf:ro
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
     restart: unless-stopped
+  wordpress_cli:
+    build: wordpress_cli
+    depends_on:
+      - wordpress
+      - mariadb
+    user: "33:33"
+    volumes:
+      - wordpress-data:/var/www/html
+    env_file: .env
+    restart: on-failure
   mariadb:
     build: mariadb
     env_file:
@@ -22,7 +34,15 @@ services:
     volumes:
       - wordpress-db:/var/lib/mysql
     restart: unless-stopped
+    healthcheck:
+      test: ss -tunlp | grep 3306
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
   phpmyadmin:
+    depends_on:
+      - mariadb
     image: phpmyadmin
     environment:
       - PMA_HOST=mariadb

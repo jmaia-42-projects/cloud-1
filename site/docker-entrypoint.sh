@@ -96,7 +96,7 @@ if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
 	fi
 fi
 
-openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/certs/unelephant-key.pem -out /etc/ssl/certs/unelephant-cert.pem -sha256 -days 365 -nodes -subj "/CN=unelephant.fr.nf" && chmod 400 /etc/ssl/certs/unelephant-key.pem && chmod 444 /etc/ssl/certs/unelephant-cert.pem
+openssl req -x509 -newkey rsa:4096 -keyout /etc/ssl/certs/unelephant-key.pem -out /etc/ssl/certs/unelephant-cert.pem -sha256 -days 365 -nodes -subj "/CN=jmaia.42.fr" && chmod 400 /etc/ssl/certs/unelephant-key.pem && chmod 444 /etc/ssl/certs/unelephant-cert.pem
 a2enmod ssl
 a2ensite default-ssl
 service apache2 restart
